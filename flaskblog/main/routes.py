@@ -3,7 +3,7 @@ from flaskblog.models import Post
 
 
 main = Blueprint('main', __name__)
-
+  
 
 
 
@@ -12,6 +12,7 @@ main = Blueprint('main', __name__)
 def home():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(per_page=9, page=page)
+    # posts = Post.query.filter_by(title=str(current_user.username)).order_by(Post.date_posted.desc())
     return render_template('home.html', posts=posts)
 
 

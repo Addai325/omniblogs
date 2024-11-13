@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import redirect, url_for, flash, request, render_template, Blueprint
+from flask import redirect, url_for, flash, request, render_template, Blueprint, session
 from flask_login import current_user, login_user, logout_user, login_required
 from flaskblog.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm
 from flaskblog import bcrypt, db
@@ -38,6 +38,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
+            session.permanent=True
             flash('You have been logged in successfully', 'success')
             next_page=request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
@@ -46,13 +47,27 @@ def login():
     return render_template('login.html', title='Login', form=form)
 
 
-@users.route("/logout", methods=['GET', 'POST'])
-def logout():
+
+@users.before_request
+def session_time_checkout():
+    # Only continue if user is authenticated
+    if current_user.is_authenticated:
+        # Reset session modification time for every request
+        session.modified = True
+    elif request.endpoint not in ['users.login', 'users.register', 'users.reset_request']:
+        # Redirect to login if session expired and user tries to access protected routes
+        flash('Your session has expired, please log in again', 'warning')
+        return redirect(url_for('users.login'))
+
+
+
+
+
+@users.route("/logout", methods=['GET', 'POST'])   
+def logout():  
     logout_user()
     return redirect(url_for('main.home'))
-
-
-
+  
 
 
 
@@ -74,6 +89,8 @@ def account():
         form.email.data=current_user.email
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', title='Account', image_file=image_file, form=form)
+
+
 
 
 

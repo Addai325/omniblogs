@@ -6,12 +6,12 @@
             <div class="user-container">
                 <h2 class="user-title"><a href="{{ url_for('posts.post', post_id=post.id) }}" class="user-title-link">{{ post.title }}</a></h2>
                 {% if post.image_file %}
-                    <img class="user-post-imaged" src="{{ url_for('static', filename='post_pics/' + post.image_file) }}" alt="Post image">
+                    <img class="user-post-imaged" src="{{ url_for('static', filename='post_pics/' + post.image_file) }}" lazy="loading" alt="Post image">
                 {% endif %}
                 <!-- <p class="post-content">{{ post.content }}</p> -->
                 
                 <div class="user-aut-dte-img">
-                    <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" class="user-pro-pic" alt="Author Profile picture">
+                    <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" lazy="loading" class="user-pro-pic" alt="Author Profile picture">
                     <div class="user-aut-container"><a href="{{ url_for('users.user_posts', username=post.author.username) }}" class="user-aut">{{ post.author.username }}</a></div>
                     <div class="user-date-container"><small class="user-date">{{ post.date_posted.strftime('%Y-%m-%d') }}</small></div>
                 </div>

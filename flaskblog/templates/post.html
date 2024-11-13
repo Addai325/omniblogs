@@ -8,12 +8,12 @@
                 </div>
                 <h1 class="posts-title">{{ post.title }}</h1>
                 {% if post.image_file %}
-                    <img class="posts-imaged" src="{{ url_for('static', filename='post_pics/' + post.image_file) }}" alt="Post image">
+                    <img class="posts-imaged" src="{{ url_for('static', filename='post_pics/' + post.image_file) }}" lazy="loading" alt="Post image">
                 {% endif %}
                 <p class="the-post-content">{{ post.content|safe }}</p>
                 
                 <div class="aut-dte-imgs">
-                    <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" class="posts-pro-pic" alt="Author Profile picture">
+                    <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" lazy="loading" class="posts-pro-pic" alt="Author Profile picture">
                     <div class="auts-container"><a href="{{ url_for('users.user_posts', username=post.author.username) }}" class="posts-aut">{{ post.author.username }}</a></div>
                     <div class="dates-container"><small class="posts-date">{{ post.date_posted.strftime('%Y-%m-%d') }}</small></div>
                 </div>

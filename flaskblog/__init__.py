@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
@@ -21,17 +21,18 @@ mail=Mail()
 
 
 
+
 def create_app(config_class = Config):
     app = Flask(__name__)
     app.config.from_object(Config)
+        
     app.app_context().push()
-
     db.init_app(app)
     bcrypt.init_app(app)
     loginmanager.init_app(app)
     ckeditor.init_app(app)
     mail.init_app(app)
-
+    
 
     from flaskblog.users.routes import users
     from flaskblog.posts.routes import posts
@@ -42,7 +43,5 @@ def create_app(config_class = Config):
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(errors)
-
-
 
     return app
