@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username=db.Column(db.String(50), nullable=False, unique=True)
     email=db.Column(db.String(120), nullable=False, unique=True)
-    image_file=db.Column(db.String(50), nullable=False, default='default.jpg')
+    image_file=db.Column(db.String(120), nullable=False, default='default.jpg')
     password=db.Column(db.String(100), nullable=False)
     author=db.relationship('Post', backref='author', lazy=True)
 
@@ -41,7 +41,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title=db.Column(db.String(100), nullable=False)
     content=db.Column(db.Text, nullable=False)
-    image_file = db.Column(db.String(50), nullable=False, default='default_post.jpg')
+    image_file = db.Column(db.String(120), nullable=False, default='default_post.jpg')
     date_posted=db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id=db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
