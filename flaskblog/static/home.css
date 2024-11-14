@@ -84,6 +84,7 @@
         width: 100%;
         height: 200px;
         margin-top: 10px;
+        object-fit: cover;
         
     }
 
@@ -276,7 +277,7 @@
         width: 100%;
         height: 200px;
         margin-top: 10px;
-        
+        object-fit: cover;
     }
 
     .aut-container {
