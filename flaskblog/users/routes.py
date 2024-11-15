@@ -40,7 +40,7 @@ def login():
             login_user(user, remember=form.remember.data)
             flash('You have been logged in successfully', 'success')
             next_page=request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('main.home'))
+            return redirect(next_page or url_for('main.home'))
         else:
             flash('Unsuccessful login. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
