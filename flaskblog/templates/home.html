@@ -5,9 +5,8 @@
             <div class="home-container">
                 <h2 class="post-title"><a href="{{ url_for('posts.post', post_id=post.id) }}" class="title-link">{{ post.title }}</a></h2>
                 {% if post.image_file %}
-                    <img class="post-imaged" src="{{ url_for('static', filename='post_pics/' + post.image_file) }}" lazy="loading" alt="Post image">
+                    <img class="post-imaged" src="{{ url_for('static', filename='post_pics/' + post.image_file) }}" lazy="loading"   alt="Post image">
                 {% endif %}
-                <!-- <p class="post-content">{{ post.content }}</p> -->
                 
                 <div class="aut-dte-img">
                     <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" lazy="loading"  class="post-pro-pic" alt="Author Profile picture">
@@ -48,7 +47,7 @@
 
             </div>
             <div class="home-copyright">
-                <small class="the-home-copyright">&copy; {{ curreny_year }} OMNIBLOGS. All rights reserved.</small>
+                <small class="the-home-copyright">&copy; {{ current_year }} OMNIBLOGS. All rights reserved.</small>
             </div>
         </div>
     </footer>
