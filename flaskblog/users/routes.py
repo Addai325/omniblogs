@@ -38,7 +38,6 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            session.permanent=True
             flash('You have been logged in successfully', 'success')
             next_page=request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
@@ -48,17 +47,6 @@ def login():
 
 
 
-@users.before_request
-def session_time_checkout():
-    # Only continue if user is authenticated
-    if current_user.is_authenticated:
-        # Reset session modification time for every request
-        session.modified = True
-    elif request.endpoint not in ['users.login', 'users.register', 'users.reset_request']:
-        # Redirect to login if session expired and user tries to access protected routes
-        flash('Your session has expired, please log in again', 'warning')
-        return redirect(url_for('users.login'))
-
 
 
 
@@ -66,6 +54,8 @@ def session_time_checkout():
 @users.route("/logout", methods=['GET', 'POST'])   
 def logout():  
     logout_user()
+    session.clear()
+    flash('You have been logged out', 'info')
     return redirect(url_for('main.home'))
   
 

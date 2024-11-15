@@ -10,7 +10,6 @@ class Config():
     # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:pSdtXdRTeLmfeHpJohajWCRAEWEHskmc@autorack.proxy.rlwy.net:52095/railway"
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:dYkbaCUBPgwYGdlvxVakhDdtzXWjVBLN@autorack.proxy.rlwy.net:37912/railway"
 
-    PERMANENT_SESSION_LIFETIME = 1800
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS  = True
